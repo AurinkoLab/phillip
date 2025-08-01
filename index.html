@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phillip - Young 3D Designer & Math Enthusiast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .cube-3d {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 6s infinite linear;
+            margin: 20px auto;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #3b82f6;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            opacity: 0.8;
+        }
+        
+        .cube-face.front { transform: rotateY(0deg) translateZ(50px); }
+        .cube-face.back { transform: rotateY(180deg) translateZ(50px); }
+        .cube-face.right { transform: rotateY(90deg) translateZ(50px); }
+        .cube-face.left { transform: rotateY(-90deg) translateZ(50px); }
+        .cube-face.top { transform: rotateX(90deg) translateZ(50px); }
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(50px); }
+        
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        .pyramid-3d {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid #10b981;
+            margin: 20px auto;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .pyramid-3d::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: -40px;
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-top: 60px solid #059669;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-15px) rotateY(180deg); }
+        }
+        
+        .sphere-3d {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f59e0b, #d97706, #92400e);
+            margin: 20px auto;
+            animation: bounce 2s ease-in-out infinite;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+        
+        .torus-3d {
+            width: 80px;
+            height: 80px;
+            border: 20px solid #8b5cf6;
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: spin 4s linear infinite;
+            box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            100% { transform: rotateY(360deg) rotateX(360deg); }
+        }
+        
+        .math-formula {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #a855f7; }
+            to { text-shadow: 0 0 20px #a855f7, 0 0 30px #a855f7, 0 0 40px #a855f7; }
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #475569;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+        }
+        
+        .contact-input {
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid #475569;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -8px;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, transparent);
+        }
+        
+        .robot-arm {
+            position: relative;
+            width: 120px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        
+        .robot-base {
+            position: absolute;
+            bottom: 0;
+            left: 35px;
+            width: 50px;
+            height: 20px;
+            background: #475569;
+            border-radius: 5px;
+        }
+        
+        .robot-arm-1 {
+            position: absolute;
+            bottom: 20px;
+            left: 55px;
+            width: 10px;
+            height: 80px;
+            background: #3b82f6;
+            transform-origin: bottom;
+            animation: armMove1 4s infinite alternate;
+        }
+        
+        .robot-arm-2 {
+            position: absolute;
+            bottom: 100px;
+            left: 55px;
+            width: 10px;
+            height: 60px;
+            background: #8b5cf6;
+            transform-origin: bottom;
+            animation: armMove2 3s infinite alternate;
+        }
+        
+        .robot-claw {
+            position: absolute;
+            bottom: 160px;
+            left: 45px;
+            width: 30px;
+            height: 20px;
+            background: #f59e0b;
+            border-radius: 5px;
+            animation: clawMove 2s infinite alternate;
+        }
+        
+        @keyframes armMove1 {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
+        }
+        
+        @keyframes armMove2 {
+            0% { transform: rotate(-20deg); }
+            100% { transform: rotate(20deg); }
+        }
+        
+        @keyframes clawMove {
+            0% { transform: rotate(-30deg); }
+            100% { transform: rotate(30deg); }
+        }
+        
+        .game-controller {
+            position: relative;
+            width: 120px;
+            height: 80px;
+            background: #475569;
+            border-radius: 40px;
+            margin: 0 auto;
+        }
+        
+        .controller-btn {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #f59e0b;
+        }
+        
+        .btn-1 { top: 20px; right: 30px; animation: btnPulse 1.5s infinite; }
+        .btn-2 { top: 40px; right: 15px; animation: btnPulse 1.5s infinite 0.5s; }
+        .btn-3 { top: 40px; right: 45px; animation: btnPulse 1.5s infinite 1s; }
+        .btn-4 { top: 60px; right: 30px; animation: btnPulse 1.5s infinite 0.75s; }
+        
+        .controller-dpad {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .dpad-btn {
+            position: absolute;
+            background: #3b82f6;
+            width: 12px;
+            height: 12px;
+        }
+        
+        .dpad-up { top: 0; left: 14px; }
+        .dpad-right { top: 14px; right: 0; }
+        .dpad-down { bottom: 0; left: 14px; }
+        .dpad-left { top: 14px; left: 0; }
+        
+        @keyframes btnPulse {
+            0%, 100% { transform: scale(1); background: #f59e0b; }
+            50% { transform: scale(1.2); background: #d97706; }
+        }
+        
+        .rocket {
+            position: relative;
+            width: 60px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .rocket-body {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .rocket-window {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            width: 10px;
+            height: 10px;
+            background: #f8fafc;
+            border-radius: 50%;
+        }
+        
+        .rocket-fin {
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 30px;
+            background: #8b5cf6;
+        }
+        
+        .fin-left { left: 0; border-radius: 10px 0 0 0; }
+        .fin-right { right: 0; border-radius: 0 10px 0 0; }
+        
+        .rocket-flame {
+            position: absolute;
+            bottom: -30px;
+            left: 15px;
+            width: 30px;
+            height: 40px;
+            background: linear-gradient(to bottom, #f59e0b, #ef4444);
+            border-radius: 0 0 15px 15px;
+            animation: flameFlicker 0.3s infinite alternate;
+        }
+        
+        @keyframes flameFlicker {
+            0% { height: 30px; bottom: -20px; }
+            100% { height: 40px; bottom: -30px; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="fixed w-full bg-slate-900/90 backdrop-blur-sm z-50 border-b border-slate-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                    <span class="text-white font-bold">P</span>
+                </div>
+                <h1 class="text-xl font-bold text-white">Phillip</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-slate-300 hover:text-white">About Me</a>
+                <a href="#cool-stuff" class="nav-link text-slate-300 hover:text-white">Cool Stuff</a>
+                <a href="#projects" class="nav-link text-slate-300 hover:text-white">My Projects</a>
+                <a href="#skills" class="nav-link text-slate-300 hover:text-white">My Skills</a>
+                <a href="#contact" class="nav-link text-slate-300 hover:text-white">Say Hi!</a>
+            </nav>
+            
+            <button id="menu-toggle" class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-b border-slate-800">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#about" class="text-slate-300 hover:text-white py-2">About Me</a>
+                <a href="#cool-stuff" class="text-slate-300 hover:text-white py-2">Cool Stuff</a>
+                <a href="#projects" class="text-slate-300 hover:text-white py-2">My Projects</a>
+                <a href="#skills" class="text-slate-300 hover:text-white py-2">My Skills</a>
+                <a href="#contact" class="text-slate-300 hover:text-white py-2">Say Hi!</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 bg-gradient-to-b from-slate-900 to-slate-800">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="text-white">Hi, I'm Phillip!</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-blue-400">
+                    3D Designer & Math Explorer
+                </h2>
+                <p class="text-slate-300 text-lg mb-8">
+                    I love creating awesome 3D models, solving math puzzles, and building cool stuff with code! 
+                    Join me on my journey to explore the amazing world of math, design, and technology.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#cool-stuff" class="btn-primary px-6 py-3 rounded-lg text-white font-medium">
+                        See Cool Stuff
+                    </a>
+                    <a href="#projects" class="px-6 py-3 rounded-lg border border-blue-500 text-blue-400 font-medium hover:bg-blue-500/10 transition">
+                        My Projects
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center perspective-1000">
+                <div class="relative w-64 h-64">
+                    <div class="cube-3d" style="width: 150px; height: 150px; transform-style: preserve-3d;">
+                        <div class="cube-face front" style="width: 150px; height: 150px; transform: rotateY(0deg) translateZ(75px);"></div>
+                        <div class="cube-face back" style="width: 150px; height: 150px; transform: rotateY(180deg) translateZ(75px);"></div>
+                        <div class="cube-face right" style="width: 150px; height: 150px; transform: rotateY(90deg) translateZ(75px);"></div>
+                        <div class="cube-face left" style="width: 150px; height: 150px; transform: rotateY(-90deg) translateZ(75px);"></div>
+                        <div class="cube-face top" style="width: 150px; height: 150px; transform: rotateX(90deg) translateZ(75px);"></div>
+                        <div class="cube-face bottom" style="width: 150px; height: 150px; transform: rotateX(-90deg) translateZ(75px);"></div>
+                    </div>
+                    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                        <div class="code-font text-xl text-white math-formula">x² + y² = r²</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-slate-800">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-white mb-12 text-center">About Me</h2>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center">
+                    <div class="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
+                        <div class="w-full h-full rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-40 w-40 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-2/3 md:pl-12">
+                    <p class="text-slate-300 text-lg mb-6">
+                        Hi there! I'm Phillip, and I'm 11 years old. I love everything about math, 3D design, 
+                        engineering, and computers. When I'm not at school, you can find me creating cool 3D models 
+                        or working on my coding projects!
+                    </p>
+                    <p class="text-slate-300 text-lg mb-6">
+                        I started getting interested in 3D design when I was 9 years old. My favorite subjects 
+                        at school are math and science. I enjoy solving puzzles and figuring out how things work.
+                        I also love building robots and playing with electronics!
+                    </p>
+                    <p class="text-slate-300 text-lg mb-8">
+                        My dream is to become a game developer or robotics engineer when I grow up. I'm learning 
+                        new things every day and can't wait to share my creations with you!
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <div class="px-4 py-2 bg-blue-500/20 text-blue-300 rounded-full">3D Modeling</div>
+                        <div class="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-full">Math</div>
+                        <div class="px-4 py-2 bg-green-500/20 text-green-300 rounded-full">Coding</div>
+                        <div class="px-4 py-2 bg-yellow-500/20 text-yellow-300 rounded-full">Robotics</div>
+                        <div class="px-4 py-2 bg-red-500/20 text-red-300 rounded-full">Gaming</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cool Stuff Section -->
+    <section id="cool-stuff" class="py-20 px-4 bg-slate-900">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-white mb-12 text-center">Cool Math & 3D Stuff</h2>
+            
+            <div class="mt-20">
+                <h3 class="text-2xl font-semibold text-blue-400 mb-8 text-center">Fun Math Facts I Love</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-4 shrink-0">
+                                <span class="text-blue-400 text-xl">π</span>
+                            </div>
+                            <h4 class="text-xl font-semibold text-white">The Magic of Pi</h4>
+                        </div>
+                        <p class="text-slate-300">
+                            Pi (π) is approximately 3.14159 and goes on forever without repeating! It's the ratio of a 
+                            circle's circumference to its diameter. I've memorized the first 50 digits!
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mr-4 shrink-0">
+                                <span class="text-purple-400 text-xl">∞</span>
+                            </div>
+                            <h4 class="text-xl font-semibold text-white">Infinity and Beyond</h4>
+                        </div>
+                        <p class="text-slate-300">
+                            Did you know there are different sizes of infinity? The infinity of counting numbers 
+                            is smaller than the infinity of all real numbers. Mind-blowing, right?
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mr-4 shrink-0">
+                                <span class="text-green-400 text-xl">F</span>
+                            </div>
+                            <h4 class="text-xl font-semibold text-white">Fibonacci Sequence</h4>
+                        </div>
+                        <p class="text-slate-300">
+                            The Fibonacci sequence (0, 1, 1, 2, 3, 5, 8, 13...) appears everywhere in nature! 
+                            You can find it in flower petals, pinecones, and even galaxies!
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center mr-4 shrink-0">
+                                <span class="text-yellow-400 text-xl">4D</span>
+                            </div>
+                            <h4 class="text-xl font-semibold text-white">The Fourth Dimension</h4>
+                        </div>
+                        <p class="text-slate-300">
+                            We live in a 3D world, but mathematicians can work with any number of dimensions! 
+                            A 4D cube is called a tesseract, and it looks super cool when projected into 3D.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 bg-slate-800">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-white mb-12 text-center">My Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="torus-3d"></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">3D Math Shapes Collection</h3>
+                        <p class="text-slate-400 mb-4">
+                            I created a collection of cool 3D shapes like dodecahedrons, toruses, and 
+                            Möbius strips using Blender. They look awesome when they spin!
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">Blender</span>
+                            <span class="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded">3D Modeling</span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded">Math</span>
+                        </div>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="robot-arm">
+                                <div class="robot-base"></div>
+                                <div class="robot-arm-1"></div>
+                                <div class="robot-arm-2"></div>
+                                <div class="robot-claw"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Mini Robot Arm</h3>
+                        <p class="text-slate-400 mb-4">
+                            I built a small robot arm that can pick up light objects. I programmed it 
+                            using Arduino and designed the parts in a 3D modeling program.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded">Arduino</span>
+                            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 text-xs rounded">Robotics</span>
+                            <span class="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded">3D Printing</span>
+                        </div>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-yellow-500 to-orange-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="game-controller">
+                                <div class="controller-btn btn-1"></div>
+                                <div class="controller-btn btn-2"></div>
+                                <div class="controller-btn btn-3"></div>
+                                <div class="controller-btn btn-4"></div>
+                                <div class="controller-dpad">
+                                    <div class="dpad-btn dpad-up"></div>
+                                    <div class="dpad-btn dpad-right"></div>
+                                    <div class="dpad-btn dpad-down"></div>
+                                    <div class="dpad-btn dpad-left"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Math Quiz Game</h3>
+                        <p class="text-slate-400 mb-4">
+                            I made a fun math quiz game using Scratch. It has different difficulty levels 
+                            and keeps track of your high score. Try to beat my record!
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">Scratch</span>
+                            <span class="px-2 py-1 bg-orange-500/20 text-orange-300 text-xs rounded">Game Design</span>
+                            <span class="px-2 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded">Math</span>
+                        </div>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="rocket">
+                                <div class="rocket-body"></div>
+                                <div class="rocket-window"></div>
+                                <div class="rocket-fin fin-left"></div>
+                                <div class="rocket-fin fin-right"></div>
+                                <div class="rocket-flame"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Space Explorer Game</h3>
+                        <p class="text-slate-400 mb-4">
+                            I'm working on a simple space game where you explore planets and solve 
+                            math puzzles to earn points and upgrade your spaceship.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-pink-500/20 text-pink-300 text-xs rounded">Pygame</span>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">Game Design</span>
+                        </div>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-red-500 to-orange-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="pyramid-3d" style="border-bottom-color: #ef4444;"></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Fractal Generator</h3>
+                        <p class="text-slate-400 mb-4">
+                            I created a program that draws cool fractal patterns like the Sierpinski 
+                            triangle and the Koch snowflake. The patterns can go on forever!
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded">Processing</span>
+                            <span class="px-2 py-1 bg-orange-500/20 text-orange-300 text-xs rounded">Fractals</span>
+                            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 text-xs rounded">Math Art</span>
+                        </div>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-indigo-500 to-blue-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="sphere-3d" style="background: radial-gradient(circle at 30% 30%, #6366f1, #4f46e5, #4338ca);"></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Solar System Model</h3>
+                        <p class="text-slate-400 mb-4">
+                            I built a 3D model of our solar system with all the planets to scale. 
+                            You can see how the planets orbit around the sun!
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded">Blender</span>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">Astronomy</span>
+                            <span class="px-2 py-1 bg-violet-500/20 text-violet-300 text-xs rounded">3D Modeling</span>
+                        </div>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="btn-primary px-8 py-3 rounded-lg text-white font-medium inline-block">
+                    See All My Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 bg-slate-900">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-white mb-12 text-center">My Skills</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-6">Computer Skills</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Blender</span>
+                                <span class="text-slate-400">40%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Scratch</span>
+                                <span class="text-slate-400">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Python</span>
+                                <span class="text-slate-400">35%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Arduino</span>
+                                <span class="text-slate-400">25%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 25%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">HTML & CSS</span>
+                                <span class="text-slate-400">05%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 05%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Minecraft Redstone</span>
+                                <span class="text-slate-400">60%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-6">Math & Science Skills</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Geometry</span>
+                                <span class="text-slate-400">55%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 55%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Algebra</span>
+                                <span class="text-slate-400">30%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">3D Design</span>
+                                <span class="text-slate-400">55%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 55%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Physics</span>
+                                <span class="text-slate-400">40%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Robotics</span>
+                                <span class="text-slate-400">35%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">Logic Puzzles</span>
+                                <span class="text-slate-400">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-semibold text-white mb-8 text-center">What I Want to Learn Next</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all text-center">
+                        <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Game Development</h4>
+                        <p class="text-slate-400">
+                            I want to learn Unity or Unreal Engine to make my own 3D games with cool math puzzles!
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all text-center">
+                        <div class="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">AI & Machine Learning</h4>
+                        <p class="text-slate-400">
+                            I'm curious about how AI works and want to learn how to train my own simple AI models.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-all text-center">
+                        <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Advanced Robotics</h4>
+                        <p class="text-slate-400">
+                            I want to build more complex robots that can navigate and solve problems on their own.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-slate-800">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-white mb-12 text-center">Say Hi!</h2>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-slate-300 mb-2">Your Name</label>
+                            <input type="text" id="name" class="contact-input w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="What's your name?">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-slate-300 mb-2">Your Email</label>
+                            <input type="email" id="email" class="contact-input w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Where can I reply to you?">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-slate-300 mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="contact-input w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="What would you like to say?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary px-8 py-3 rounded-lg text-white font-medium w-full">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-slate-900 rounded-xl p-8 h-full">
+                        <h3 class="text-2xl font-semibold text-white mb-6">Let's Be Friends!</h3>
+                        
+                        <div class="space-y-6">
+                            <p class="text-slate-300">
+                                I love connecting with other kids who are interested in math, coding, and 3D design! 
+                                If you have any cool project ideas or just want to say hi, send me a message!
+                            </p>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-4 shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-slate-300 font-medium mb-1">Email (with parent's permission)</h4>
+                                    <p class="text-blue-400">phillip@example.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-4 shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-slate-300 font-medium mb-1">Location</h4>
+                                    <p class="text-blue-400">United States</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-8 border-t border-slate-700">
+                            <h4 class="text-slate-300 font-medium mb-4">My Favorite Quote</h4>
+                            <p class="text-slate-300 italic">
+                                "Mathematics is not about numbers, equations, computations, or algorithms: 
+                                it is about understanding." - William Paul Thurston
+                            </p>
+                            
+                            <div class="mt-8">
+                                <h4 class="text-slate-300 font-medium mb-4">Fun Math Joke</h4>
+                                <p class="text-slate-300">
+                                    Why did the math book look sad? Because it had too many problems!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-12 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                            <span class="text-white font-bold">P</span>
+                        </div>
+                        <h1 class="text-xl font-bold text-white">Phillip</h1>
+                    </div>
+                    <p class="text-slate-400 max-w-md">
+                        11-year-old math enthusiast, 3D designer, and coding explorer. 
+                        Always learning and creating cool stuff!
+                    </p>
+                </div>
+                
+                <div class="flex space-x-8">
+                    <div>
+                        <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#about" class="text-slate-400 hover:text-blue-400 transition">About Me</a></li>
+                            <li><a href="#cool-stuff" class="text-slate-400 hover:text-blue-400 transition">Cool Stuff</a></li>
+                            <li><a href="#projects" class="text-slate-400 hover:text-blue-400 transition">My Projects</a></li>
+                            <li><a href="#skills" class="text-slate-400 hover:text-blue-400 transition">My Skills</a></li>
+                            <li><a href="#contact" class="text-slate-400 hover:text-blue-400 transition">Say Hi!</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-white font-semibold mb-4">Cool Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="https://scratch.mit.edu" target="_blank" class="text-slate-400 hover:text-blue-400 transition">Scratch</a></li>
+                            <li><a href="https://www.khanacademy.org" target="_blank" class="text-slate-400 hover:text-blue-400 transition">Khan Academy</a></li>
+                            <li><a href="https://www.tinkercad.com" target="_blank" class="text-slate-400 hover:text-blue-400 transition">Tinkercad</a></li>
+                            <li><a href="https://www.codecademy.com" target="_blank" class="text-slate-400 hover:text-blue-400 transition">Codecademy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-500 mb-4 md:mb-0">
+                    &copy; 2023 Phillip's Cool Math & 3D World
+                </p>
+                <p class="text-slate-500">
+                    Made with ❤️ and lots of math!
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Form submission (demo only)
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert("Thanks for your message! This is just a demo form, so it doesn't actually send anything. But it's cool that you tried it out!");
+                contactForm.reset();
+            });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968743b2d6308d6c',t:'MTc1NDA3MTUzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
